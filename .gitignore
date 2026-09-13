@@ -1,0 +1,7 @@
+LC_CLAUDE_VIDEOS_EXPLICACIONES_2026/
+.claude/settings.local.json
+
+.DS_Store
+Thumbs.db
+desktop.ini
+*.log
