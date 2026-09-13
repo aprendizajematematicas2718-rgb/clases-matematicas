@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Aprendizaje de Matemáticas — Clases visuales y preparación Saber 11</title>
-<meta name="description" content="Enseñanza de matemáticas basada en conceptos fundamentales, apoyada en representaciones visuales e interactivas, con diagnóstico de alta precisión para las Pruebas Saber 11.">
+<meta name="description" content="Enseñanza de matemáticas basada en conceptos fundamentales, apoyada en representaciones visuales e interactivas, con clases y asesorías a la medida para las Pruebas Saber 11.">
 <meta name="theme-color" content="#ffffff">
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -25,6 +25,7 @@
   --green: #16A34A;
   --orange: #F97316;
   --red: #EF4444;
+  --teal: #0891B2;
   --ink: #0F172A;
   --ink-soft: #475569;
   --hairline: #E2E8F0;
@@ -671,60 +672,6 @@ body.nav-open { overflow: hidden; }
 .manifesto-text em { color: var(--violet); font-style: italic; }
 
 /* ================================================================
-   CIFRAS
-   ================================================================ */
-.stats {
-  padding: 110px 0;
-  background: var(--ink);
-  overflow: hidden;
-}
-.stats-grid {
-  position: absolute;
-  inset: 0;
-  background-image: linear-gradient(to bottom, rgba(255,255,255,0.06) 1px, transparent 1px);
-  background-size: 100% 44px;
-  z-index: 0;
-}
-.stats-inner {
-  position: relative;
-  z-index: 1;
-  display: grid;
-  gap: 48px;
-  grid-template-columns: 1fr;
-  text-align: center;
-}
-@media (min-width: 700px) {
-  .stats-inner { grid-template-columns: repeat(3, 1fr); text-align: left; }
-}
-.stat {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  padding-top: 20px;
-  border-top: 3px solid rgba(255,255,255,0.16);
-}
-.stat-number {
-  font-family: var(--font-display);
-  font-weight: 600;
-  font-size: clamp(3.2rem, 7vw, 5.2rem);
-  color: #60A5FA;
-  line-height: 1;
-  letter-spacing: -0.02em;
-  font-variant-numeric: tabular-nums;
-}
-.stat:nth-child(2) { border-top-color: var(--violet); }
-.stat:nth-child(3) { border-top-color: var(--green); }
-.stat:nth-child(1) { border-top-color: #60A5FA; }
-.stat:nth-child(2) .stat-number { color: #C4B5FD; }
-.stat:nth-child(3) .stat-number { color: #6EE7A8; }
-.stat-label {
-  font-size: 1rem;
-  font-weight: 500;
-  color: rgba(255,255,255,0.68);
-  max-width: 26ch;
-}
-
-/* ================================================================
    PROCESO
    ================================================================ */
 .process { padding: 140px 0 120px; }
@@ -867,15 +814,6 @@ body.nav-open { overflow: hidden; }
   overflow: hidden;
   touch-action: none;
 }
-.manip-piece {
-  position: absolute;
-  cursor: grab;
-  user-select: none;
-  touch-action: none;
-  filter: drop-shadow(0 4px 6px rgba(15, 23, 42, 0.12));
-}
-.manip-piece:active { cursor: grabbing; }
-
 .lab-panel-foot { margin-top: 18px; font-size: 0.92rem; color: var(--ink-soft); }
 .c-blue { color: var(--blue); } .c-violet { color: var(--violet); } .c-green { color: var(--green); } .c-orange { color: var(--orange); }
 
@@ -934,7 +872,7 @@ body.nav-open { overflow: hidden; }
 .slider-grid input { width: 100%; margin-top: 10px; accent-color: var(--blue); }
 
 .map-canvas {
-  width: 100%; height: 340px;
+  width: 100%; height: 400px;
   border-radius: 16px;
   background: #FAFAF9;
   border: 1px solid var(--hairline);
@@ -1081,6 +1019,8 @@ body.nav-open { overflow: hidden; }
 .traj-tag-violet { background: rgba(124,58,237,0.1); color: var(--violet); }
 .traj-tag-green { background: rgba(22,163,74,0.1); color: var(--green); }
 .traj-tag-orange { background: rgba(249,115,22,0.1); color: var(--orange); }
+.traj-tag-red { background: rgba(239,68,68,0.1); color: var(--red); }
+.traj-tag-teal { background: rgba(8,145,178,0.1); color: var(--teal); }
 
 /* ================================================================
    CONTACTO
@@ -1213,6 +1153,89 @@ body.nav-open { overflow: hidden; }
 .video-caption p { margin: 0; color: var(--ink-soft); font-size: 0.96rem; line-height: 1.55; }
 
 /* ================================================================
+   COMPETENCIAS
+   ================================================================ */
+.competencias { padding: 120px 0; background: var(--paper-soft); border-top: 1px solid var(--hairline); border-bottom: 1px solid var(--hairline); }
+.comp-grid {
+  margin-top: 48px;
+  display: grid;
+  gap: 28px;
+  grid-template-columns: 1fr;
+}
+@media (min-width: 760px) {
+  .comp-grid { grid-template-columns: repeat(3, 1fr); }
+}
+.comp-card {
+  padding: 32px 26px;
+  background: #fff;
+  border: 2px solid var(--ink);
+  border-radius: 4px;
+  box-shadow: 6px 6px 0 0 var(--ink);
+  transition: transform 0.3s var(--ease), box-shadow 0.3s var(--ease);
+}
+.comp-card:hover { transform: translate(-3px, -3px); box-shadow: 9px 9px 0 0 var(--accent, var(--ink)); }
+.comp-icon { width: 72px; height: 72px; margin-bottom: 20px; }
+.comp-icon svg { width: 100%; height: 100%; overflow: visible; }
+.comp-card h3 {
+  margin: 0 0 10px;
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: 1.2rem;
+}
+.comp-card p { margin: 0; color: var(--ink-soft); font-size: 0.96rem; line-height: 1.55; }
+
+/* interpretación: trazo que se dibuja y puntos que aparecen en secuencia */
+.comp-icon-draw {
+  stroke-dasharray: 110;
+  stroke-dashoffset: 110;
+  animation: compDraw 4s ease-in-out infinite;
+}
+.comp-icon-dot {
+  opacity: 0;
+  animation: compDot 4s ease-in-out infinite;
+  animation-delay: var(--dot-delay, 0s);
+}
+@keyframes compDraw {
+  0%   { stroke-dashoffset: 110; }
+  55%  { stroke-dashoffset: 0; }
+  100% { stroke-dashoffset: 0; }
+}
+@keyframes compDot {
+  0%, 100% { opacity: 0; transform: scale(0.6); }
+  15%, 85% { opacity: 1; transform: scale(1); }
+}
+
+/* formulación y ejecución: pasos que se activan en secuencia */
+.comp-icon-step {
+  opacity: 0.25;
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: compStep 2.4s ease-in-out infinite;
+  animation-delay: var(--step-delay, 0s);
+}
+@keyframes compStep {
+  0%, 100% { opacity: 0.25; transform: scale(0.85); }
+  40% { opacity: 1; transform: scale(1.15); }
+  70% { opacity: 1; transform: scale(1); }
+}
+
+/* argumentación: burbuja que se dibuja y check que confirma */
+.comp-icon-check {
+  stroke-dasharray: 46;
+  stroke-dashoffset: 46;
+  animation: compCheck 3.6s ease-in-out infinite;
+}
+@keyframes compCheck {
+  0%, 45%  { stroke-dashoffset: 46; }
+  70%, 100% { stroke-dashoffset: 0; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .comp-icon-draw, .comp-icon-check { animation: none; stroke-dashoffset: 0; }
+  .comp-icon-dot { animation: none; opacity: 1; transform: none; }
+  .comp-icon-step { animation: none; opacity: 1; transform: none; }
+}
+
+/* ================================================================
    FOOTER
    ================================================================ */
 .site-footer { border-top: 1px solid var(--hairline); padding: 32px 0; }
@@ -1296,7 +1319,7 @@ body.nav-open { overflow: hidden; }
         <span class="clock-sep">·</span>
         <span id="clockTime">00:00:00</span>
       </div>
-      <a href="#contacto" class="btn btn-orange btn-sm">Agendar diagnóstico</a>
+      <a href="#contacto" class="btn btn-orange btn-sm">Solicitar clase o asesoría</a>
       <button type="button" class="nav-toggle" id="navToggle" aria-label="Abrir menú" aria-expanded="false" aria-controls="mobileNav">
         <span class="nav-toggle-bar"></span>
       </button>
@@ -1323,7 +1346,7 @@ body.nav-open { overflow: hidden; }
     <a href="#contacto"><span class="mobile-nav-index">05</span>Contacto</a>
   </nav>
   <div class="wrap mobile-nav-foot">
-    <a href="#contacto" class="btn btn-orange">Agendar diagnóstico</a>
+    <a href="#contacto" class="btn btn-orange">Solicitar clase o asesoría</a>
   </div>
 </div>
 
@@ -1362,19 +1385,19 @@ body.nav-open { overflow: hidden; }
   </div>
 
   <div class="wrap hero-inner">
-    <p class="eyebrow reveal reveal--fade">clases visuales · diagnóstico saber 11</p>
+    <p class="eyebrow reveal reveal--fade">clases visuales · preparación saber 11</p>
     <h1 class="hero-title">
       <span class="reveal reveal--lines" style="--d:0">Las matemáticas,</span>
       <span class="reveal reveal--lines" style="--d:1">comprendidas</span>
       <span class="reveal reveal--lines" style="--d:2">desde su <em>fundamento</em>.</span>
     </h1>
     <p class="hero-sub reveal reveal--fade" style="--d:3">
-      Un método que combina manipulativos interactivos, geometría dinámica y
-      rutas conceptuales con la precisión de un diagnóstico estandarizado
+      Un método que combina álgebra visual, geometría dinámica y
+      rutas conceptuales con el rigor de una preparación estructurada
       por competencias.
     </p>
     <div class="hero-actions reveal reveal--fade" style="--d:4">
-      <a href="#contacto" class="btn btn-orange">Solicitar diagnóstico o clase</a>
+      <a href="#contacto" class="btn btn-orange">Solicitar clase o asesoría</a>
       <a href="#laboratorio" class="btn btn-ghost">Ver el laboratorio visual</a>
     </div>
   </div>
@@ -1395,7 +1418,7 @@ body.nav-open { overflow: hidden; }
     <p class="eyebrow reveal reveal--fade">el porqué</p>
     <p class="manifesto-text">
       <span class="line reveal reveal--lines" style="--d:0">Enseñamos matemáticas empezando por el concepto,</span>
-      <span class="line reveal reveal--lines" style="--d:1">no por la fórmula memorizada. Cada idea se toca,</span>
+      <span class="line reveal reveal--lines" style="--d:1">no por la fórmula memorizada. Cada idea se construye,</span>
       <span class="line reveal reveal--lines" style="--d:2">se mueve y se comprueba antes de escribirse en el</span>
       <span class="line reveal reveal--lines" style="--d:3">cuaderno — para que el estudiante entienda</span>
       <span class="line reveal reveal--lines" style="--d:4"><em>por qué</em> funciona, no solo cómo aplicarlo.</span>
@@ -1403,187 +1426,11 @@ body.nav-open { overflow: hidden; }
   </div>
 </section>
 
-<!-- ============ CIFRAS ============ -->
-<section class="stats">
-  <div class="stats-grid parallax-layer" data-speed="0.05" aria-hidden="true"></div>
-  <div class="wrap stats-inner">
-    <div class="stat reveal reveal--up" style="--d:0">
-      <span class="stat-number" data-count="3" data-suffix="">0</span>
-      <span class="stat-label">competencias Icfes evaluadas a fondo</span>
-    </div>
-    <div class="stat reveal reveal--up" style="--d:1">
-      <span class="stat-number" data-count="25" data-suffix="">0</span>
-      <span class="stat-label">preguntas en la prueba estandarizada completa</span>
-    </div>
-    <div class="stat reveal reveal--up" style="--d:2">
-      <span class="stat-number" data-count="4" data-suffix="">0</span>
-      <span class="stat-label">niveles de desempeño en cada informe</span>
-    </div>
-  </div>
-</section>
-
-<!-- ============ PROCESO ============ -->
-<section id="proceso" class="process">
-  <div class="wrap">
-    <p class="eyebrow reveal reveal--fade">nuestro proceso</p>
-    <h2 class="section-title reveal reveal--fade">No enseñamos para el examen.<br>Preparamos para entender.</h2>
-
-    <div class="process-list">
-      <article class="process-item reveal reveal--left" style="--d:0">
-        <span class="process-num">01</span>
-        <div>
-          <h3>Diagnosticamos</h3>
-          <p>Una primera prueba corta ubica el punto de partida real del
-            estudiante, sin suposiciones y con retroalimentación directa
-            en la misma sesión.</p>
-        </div>
-      </article>
-
-      <article class="process-item reveal reveal--left" style="--d:1">
-        <span class="process-num">02</span>
-        <div>
-          <h3>Enseñamos con fundamento visual</h3>
-          <p>Manipulativos, geometría dinámica y mapas conceptuales
-            construyen la comprensión antes de formalizarla — el mismo
-            espíritu de Polypad y GeoGebra.</p>
-        </div>
-      </article>
-
-      <article class="process-item reveal reveal--left" style="--d:2">
-        <span class="process-num">03</span>
-        <div>
-          <h3>Preparamos con rigor Icfes</h3>
-          <p>Pruebas estandarizadas por competencias, con informe
-            analítico por niveles de desempeño y un plan de acción
-            personalizado.</p>
-        </div>
-      </article>
-    </div>
-  </div>
-</section>
-
-<!-- ============ LABORATORIO VISUAL INTERACTIVO ============ -->
-<section id="laboratorio" class="lab">
-  <div class="wrap">
-    <p class="eyebrow reveal reveal--fade">metodología</p>
-    <h2 class="section-title reveal reveal--fade">Un laboratorio para tocar, mover y comprobar cada concepto</h2>
-    <p class="section-lead reveal reveal--fade">
-      Antes de memorizar una fórmula, la exploramos con manipulativos,
-      álgebra visual, geometría dinámica y mapas conceptuales.
-    </p>
-
-    <div class="lab-grid">
-      <div class="lab-tabs reveal reveal--left" role="tablist" aria-label="Pilares del laboratorio visual">
-        <button type="button" data-tab="manipulativos" role="tab" aria-selected="true" class="lab-tab is-active" style="--accent: var(--violet); --accent-tint: rgba(124, 58, 237, 0.08);">
-          <span class="tab-head"><span class="tab-dot tab-dot-violet">1</span><span>Manipulativos</span></span>
-          <p>Arrastra piezas geométricas para descubrir área, simetría y proporción.</p>
-        </button>
-        <button type="button" data-tab="algebra" role="tab" aria-selected="false" class="lab-tab" style="--accent: var(--blue); --accent-tint: rgba(37, 99, 235, 0.08);">
-          <span class="tab-head"><span class="tab-dot tab-dot-blue">2</span><span>Álgebra visual</span></span>
-          <p>Combina fichas de x², x y 1 para representar expresiones algebraicas — al estilo de los algebra tiles de Polypad.</p>
-        </button>
-        <button type="button" data-tab="geometria" role="tab" aria-selected="false" class="lab-tab" style="--accent: var(--green); --accent-tint: rgba(22, 163, 74, 0.08);">
-          <span class="tab-head"><span class="tab-dot tab-dot-green">3</span><span>Geometría dinámica</span></span>
-          <p>Ajusta amplitud, frecuencia y corrimientos de una función seno en tiempo real.</p>
-        </button>
-        <button type="button" data-tab="mapas" role="tab" aria-selected="false" class="lab-tab" style="--accent: var(--orange); --accent-tint: rgba(249, 115, 22, 0.08);">
-          <span class="tab-head"><span class="tab-dot tab-dot-orange">4</span><span>Rutas conceptuales</span></span>
-          <p>Explora cómo se conecta cada tema con los demás dentro del plan de estudio.</p>
-        </button>
-      </div>
-
-      <div class="lab-panel-wrap reveal reveal--right">
-        <div class="lab-panel-card">
-
-          <div id="panel-manipulativos" class="lab-panel">
-            <div class="lab-panel-head">
-              <div>
-                <h3>Tangram de áreas</h3>
-                <p>Arrastra las piezas sobre la cuadrícula. Cada casilla equivale a 1 unidad².</p>
-              </div>
-              <button type="button" id="resetShapes" class="link-btn">Reordenar piezas</button>
-            </div>
-            <div id="shapeCanvas" class="manip-grid"></div>
-            <p class="lab-panel-foot">Área total cubierta: <strong id="areaTotal">0</strong> unidades²</p>
-          </div>
-
-          <div id="panel-algebra" class="lab-panel hidden">
-            <div class="lab-panel-head">
-              <div>
-                <h3>Fichas de álgebra</h3>
-                <p>Toca una ficha de la paleta para añadirla a la mesa, arrástrala para acomodarla, y toca la × para quitarla. Intenta representar (x + 2)(x + 1) usando 1 ficha x², 3 fichas x y 2 fichas 1.</p>
-              </div>
-              <button type="button" id="clearTiles" class="link-btn">Vaciar mesa</button>
-            </div>
-
-            <div class="tile-palette" role="group" aria-label="Paleta de fichas">
-              <button type="button" class="tile-swatch" data-type="x2" data-sign="1"><span class="tile-swatch-box tile-x2-pos"></span>+x²</button>
-              <button type="button" class="tile-swatch" data-type="x2" data-sign="-1"><span class="tile-swatch-box tile-x2-neg"></span>−x²</button>
-              <button type="button" class="tile-swatch" data-type="x" data-sign="1"><span class="tile-swatch-box tile-x-pos"></span>+x</button>
-              <button type="button" class="tile-swatch" data-type="x" data-sign="-1"><span class="tile-swatch-box tile-x-neg"></span>−x</button>
-              <button type="button" class="tile-swatch" data-type="1" data-sign="1"><span class="tile-swatch-box tile-1-pos"></span>+1</button>
-              <button type="button" class="tile-swatch" data-type="1" data-sign="-1"><span class="tile-swatch-box tile-1-neg"></span>−1</button>
-            </div>
-
-            <div id="tileCanvas" class="manip-grid tile-grid"></div>
-            <p class="lab-panel-foot">Expresión actual: <strong id="tileExpression">0</strong></p>
-          </div>
-
-          <div id="panel-geometria" class="lab-panel hidden">
-            <div class="lab-panel-head">
-              <h3>f(x) = <span class="c-blue" id="coefA">2</span>·sen(<span class="c-violet" id="coefB">1</span>(x − <span class="c-green" id="coefC">0</span>)) + <span class="c-orange" id="coefD">0</span></h3>
-            </div>
-            <div class="func-canvas-wrap">
-              <canvas id="functionPlot" class="func-canvas"></canvas>
-              <div class="func-toolbar" role="group" aria-label="Zoom del plano">
-                <button type="button" id="zoomOut" class="func-zoom-btn" aria-label="Alejar">−</button>
-                <button type="button" id="zoomReset" class="func-zoom-btn func-zoom-reset" aria-label="Restablecer vista">⟲</button>
-                <button type="button" id="zoomIn" class="func-zoom-btn" aria-label="Acercar">+</button>
-              </div>
-              <p class="func-hint">Arrastra para mover el plano · rueda o pellizca para hacer zoom</p>
-            </div>
-            <div class="slider-grid">
-              <label><span>A — amplitud</span><input type="range" min="0.5" max="4" step="0.5" value="2" id="sliderA"></label>
-              <label><span>B — frecuencia</span><input type="range" min="0.5" max="3" step="0.25" value="1" id="sliderB"></label>
-              <label><span>C — corrimiento horizontal</span><input type="range" min="-6" max="6" step="0.5" value="0" id="sliderC"></label>
-              <label><span>D — corrimiento vertical</span><input type="range" min="-4" max="4" step="0.5" value="0" id="sliderD"></label>
-            </div>
-            <p class="lab-panel-foot" id="functionReadout"></p>
-          </div>
-
-          <div id="panel-mapas" class="lab-panel hidden">
-            <div class="lab-panel-head">
-              <h3>Ruta: pensamiento variacional</h3>
-              <p>Selecciona un concepto para ver de qué depende y a qué da paso.</p>
-            </div>
-            <svg id="mindMap" viewBox="0 0 640 320" class="map-canvas"></svg>
-            <p class="lab-panel-foot" id="mindMapReadout">Toca cualquier nodo para comenzar.</p>
-          </div>
-
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ============ FUNCIONES EN MOVIMIENTO ============ -->
-<section class="motion" aria-hidden="false">
-  <canvas id="motionCanvas" class="motion-canvas" aria-hidden="true"></canvas>
-  <div class="wrap motion-inner">
-    <p class="eyebrow reveal reveal--fade">en movimiento</p>
-    <p class="motion-text reveal reveal--lines">Cada función tiene un pulso propio —<br>obsérvalo antes de calcularlo.</p>
-  </div>
-</section>
-
 <!-- ============ ANIMACIONES Y VIDEOS ============ -->
 <section id="videos" class="videos">
   <div class="wrap">
     <p class="eyebrow reveal reveal--fade">en video</p>
-    <h2 class="section-title reveal reveal--fade">Así se ve un concepto cuando se anima</h2>
-    <p class="section-lead reveal reveal--fade">
-      Algunas ideas se entienden mejor en movimiento. Estas animaciones se
-      reproducen solas, en bucle y sin sonido — actívalo si quieres oír la explicación.
-    </p>
+    <h2 class="section-title reveal reveal--fade">Algunas ideas se entienden mejor en movimiento</h2>
 
     <div class="video-grid">
       <div class="video-card reveal reveal--up">
@@ -1635,6 +1482,190 @@ body.nav-open { overflow: hidden; }
   </div>
 </section>
 
+<!-- ============ COMPETENCIAS ============ -->
+<section id="competencias" class="competencias">
+  <div class="wrap">
+    <p class="eyebrow reveal reveal--fade">tres competencias</p>
+    <h2 class="section-title reveal reveal--fade">Lo que cada clase pone en juego</h2>
+
+    <div class="comp-grid">
+      <article class="comp-card reveal reveal--up" style="--accent: var(--blue);">
+        <div class="comp-icon" aria-hidden="true">
+          <svg viewBox="0 0 72 72">
+            <polyline class="comp-icon-draw" points="8,54 24,34 38,44 64,14" fill="none" stroke="var(--blue)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+            <circle class="comp-icon-dot" cx="8" cy="54" r="4" fill="var(--blue)" style="--dot-delay:0s"/>
+            <circle class="comp-icon-dot" cx="24" cy="34" r="4" fill="var(--blue)" style="--dot-delay:.5s"/>
+            <circle class="comp-icon-dot" cx="38" cy="44" r="4" fill="var(--blue)" style="--dot-delay:1s"/>
+            <circle class="comp-icon-dot" cx="64" cy="14" r="4" fill="var(--blue)" style="--dot-delay:1.5s"/>
+          </svg>
+        </div>
+        <h3>Interpretación y representación</h3>
+        <p>Leer datos, gráficas y símbolos, y traducirlos de una forma a otra sin perder su significado.</p>
+      </article>
+
+      <article class="comp-card reveal reveal--up" style="--d:1; --accent: var(--violet);">
+        <div class="comp-icon" aria-hidden="true">
+          <svg viewBox="0 0 72 72">
+            <line x1="10" y1="36" x2="62" y2="36" stroke="#E2E8F0" stroke-width="3"/>
+            <circle class="comp-icon-step" cx="12" cy="36" r="7" fill="var(--violet)" style="--step-delay:0s"/>
+            <circle class="comp-icon-step" cx="36" cy="36" r="7" fill="var(--violet)" style="--step-delay:.4s"/>
+            <circle class="comp-icon-step" cx="60" cy="36" r="7" fill="var(--violet)" style="--step-delay:.8s"/>
+          </svg>
+        </div>
+        <h3>Formulación y ejecución</h3>
+        <p>Diseñar una estrategia de solución y llevarla a cabo con los procedimientos correctos.</p>
+      </article>
+
+      <article class="comp-card reveal reveal--up" style="--d:2; --accent: var(--green);">
+        <div class="comp-icon" aria-hidden="true">
+          <svg viewBox="0 0 72 72">
+            <path class="comp-icon-draw" d="M10,14 h44 a6,6 0 0 1 6,6 v22 a6,6 0 0 1 -6,6 h-26 l-12,12 v-12 h-6 a6,6 0 0 1 -6,-6 v-22 a6,6 0 0 1 6,-6 Z" fill="none" stroke="var(--green)" stroke-width="3" stroke-linejoin="round"/>
+            <path class="comp-icon-check" d="M22,32 l9,9 l19,-19" fill="none" stroke="var(--green)" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <h3>Argumentación</h3>
+        <p>Justificar por qué una solución es válida y comunicar el razonamiento con claridad.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PROCESO ============ -->
+<section id="proceso" class="process">
+  <div class="wrap">
+    <p class="eyebrow reveal reveal--fade">nuestro proceso</p>
+    <h2 class="section-title reveal reveal--fade">No enseñamos para el examen.<br>Preparamos para entender.</h2>
+
+    <div class="process-list">
+      <article class="process-item reveal reveal--left" style="--d:0">
+        <span class="process-num">01</span>
+        <div>
+          <h3>Ubicamos el punto de partida</h3>
+          <p>Una primera prueba corta ubica el punto de partida real del
+            estudiante, sin suposiciones y con retroalimentación directa
+            en la misma sesión.</p>
+        </div>
+      </article>
+
+      <article class="process-item reveal reveal--left" style="--d:1">
+        <span class="process-num">02</span>
+        <div>
+          <h3>Enseñamos con fundamento visual</h3>
+          <p>Álgebra visual, geometría dinámica y rutas conceptuales
+            construyen la comprensión antes de formalizarla — el mismo
+            espíritu de Polypad y GeoGebra.</p>
+        </div>
+      </article>
+
+      <article class="process-item reveal reveal--left" style="--d:2">
+        <span class="process-num">03</span>
+        <div>
+          <h3>Preparamos con rigor Icfes</h3>
+          <p>Pruebas estandarizadas por competencias, con retroalimentación
+            clara sobre los aciertos y un plan de acción personalizado.</p>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ============ LABORATORIO VISUAL INTERACTIVO ============ -->
+<section id="laboratorio" class="lab">
+  <div class="wrap">
+    <p class="eyebrow reveal reveal--fade">metodología</p>
+    <h2 class="section-title reveal reveal--fade">Un laboratorio para tocar, mover y comprobar cada concepto</h2>
+    <p class="section-lead reveal reveal--fade">
+      Antes de memorizar una fórmula, la exploramos con álgebra visual,
+      geometría dinámica y mapas conceptuales.
+    </p>
+
+    <div class="lab-grid">
+      <div class="lab-tabs reveal reveal--left" role="tablist" aria-label="Pilares del laboratorio visual">
+        <button type="button" data-tab="algebra" role="tab" aria-selected="true" class="lab-tab is-active" style="--accent: var(--blue); --accent-tint: rgba(37, 99, 235, 0.08);">
+          <span class="tab-head"><span class="tab-dot tab-dot-blue">1</span><span>Álgebra visual</span></span>
+          <p>Combina fichas de x², x y 1 para representar expresiones algebraicas — al estilo de los algebra tiles de Polypad.</p>
+        </button>
+        <button type="button" data-tab="geometria" role="tab" aria-selected="false" class="lab-tab" style="--accent: var(--green); --accent-tint: rgba(22, 163, 74, 0.08);">
+          <span class="tab-head"><span class="tab-dot tab-dot-green">2</span><span>Geometría dinámica</span></span>
+          <p>Ajusta amplitud, frecuencia y corrimientos de una función seno en tiempo real.</p>
+        </button>
+        <button type="button" data-tab="mapas" role="tab" aria-selected="false" class="lab-tab" style="--accent: var(--orange); --accent-tint: rgba(249, 115, 22, 0.08);">
+          <span class="tab-head"><span class="tab-dot tab-dot-orange">3</span><span>Rutas conceptuales</span></span>
+          <p>Explora cómo se conecta cada tema con los demás dentro del plan de estudio.</p>
+        </button>
+      </div>
+
+      <div class="lab-panel-wrap reveal reveal--right">
+        <div class="lab-panel-card">
+
+          <div id="panel-algebra" class="lab-panel">
+            <div class="lab-panel-head">
+              <div>
+                <h3>Fichas de álgebra</h3>
+                <p>Toca una ficha de la paleta para añadirla a la mesa, arrástrala para acomodarla, y toca la × para quitarla. Intenta representar (x + 2)(x + 1) usando 1 ficha x², 3 fichas x y 2 fichas 1.</p>
+              </div>
+              <button type="button" id="clearTiles" class="link-btn">Vaciar mesa</button>
+            </div>
+
+            <div class="tile-palette" role="group" aria-label="Paleta de fichas">
+              <button type="button" class="tile-swatch" data-type="x2" data-sign="1"><span class="tile-swatch-box tile-x2-pos"></span>+x²</button>
+              <button type="button" class="tile-swatch" data-type="x2" data-sign="-1"><span class="tile-swatch-box tile-x2-neg"></span>−x²</button>
+              <button type="button" class="tile-swatch" data-type="x" data-sign="1"><span class="tile-swatch-box tile-x-pos"></span>+x</button>
+              <button type="button" class="tile-swatch" data-type="x" data-sign="-1"><span class="tile-swatch-box tile-x-neg"></span>−x</button>
+              <button type="button" class="tile-swatch" data-type="1" data-sign="1"><span class="tile-swatch-box tile-1-pos"></span>+1</button>
+              <button type="button" class="tile-swatch" data-type="1" data-sign="-1"><span class="tile-swatch-box tile-1-neg"></span>−1</button>
+            </div>
+
+            <div id="tileCanvas" class="manip-grid tile-grid"></div>
+            <p class="lab-panel-foot">Expresión actual: <strong id="tileExpression">0</strong></p>
+          </div>
+
+          <div id="panel-geometria" class="lab-panel hidden">
+            <div class="lab-panel-head">
+              <h3>f(x) = <span class="c-blue" id="coefA">2</span>·sen(<span class="c-violet" id="coefB">1</span>(x − <span class="c-green" id="coefC">0</span>)) + <span class="c-orange" id="coefD">0</span></h3>
+            </div>
+            <div class="func-canvas-wrap">
+              <canvas id="functionPlot" class="func-canvas"></canvas>
+              <div class="func-toolbar" role="group" aria-label="Zoom del plano">
+                <button type="button" id="zoomOut" class="func-zoom-btn" aria-label="Alejar">−</button>
+                <button type="button" id="zoomReset" class="func-zoom-btn func-zoom-reset" aria-label="Restablecer vista">⟲</button>
+                <button type="button" id="zoomIn" class="func-zoom-btn" aria-label="Acercar">+</button>
+              </div>
+              <p class="func-hint">Arrastra para mover el plano · rueda o pellizca para hacer zoom</p>
+            </div>
+            <div class="slider-grid">
+              <label><span>A — amplitud</span><input type="range" min="0.5" max="4" step="0.5" value="2" id="sliderA"></label>
+              <label><span>B — frecuencia</span><input type="range" min="0.5" max="3" step="0.25" value="1" id="sliderB"></label>
+              <label><span>C — corrimiento horizontal</span><input type="range" min="-6" max="6" step="0.5" value="0" id="sliderC"></label>
+              <label><span>D — corrimiento vertical</span><input type="range" min="-4" max="4" step="0.5" value="0" id="sliderD"></label>
+            </div>
+            <p class="lab-panel-foot" id="functionReadout"></p>
+          </div>
+
+          <div id="panel-mapas" class="lab-panel hidden">
+            <div class="lab-panel-head">
+              <h3>Mapa de las matemáticas</h3>
+              <p>Selecciona un área para ver sus temas clave y cómo se conecta con las demás.</p>
+            </div>
+            <svg id="mindMap" viewBox="0 0 640 420" class="map-canvas"></svg>
+            <p class="lab-panel-foot" id="mindMapReadout">Toca cualquier área para comenzar.</p>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FUNCIONES EN MOVIMIENTO ============ -->
+<section class="motion" aria-hidden="false">
+  <canvas id="motionCanvas" class="motion-canvas" aria-hidden="true"></canvas>
+  <div class="wrap motion-inner">
+    <p class="eyebrow reveal reveal--fade">en movimiento</p>
+    <p class="motion-text reveal reveal--lines">Cada función tiene un pulso propio —<br>obsérvalo antes de calcularlo.</p>
+  </div>
+</section>
+
 <!-- ============ TRAYECTORIA ============ -->
 <section id="trayectoria" class="trajectory">
   <div class="trajectory-bg parallax-layer" data-speed="0.08" aria-hidden="true">τ</div>
@@ -1646,26 +1677,38 @@ body.nav-open { overflow: hidden; }
       <div class="traj-row reveal reveal--fade" style="--d:0">
         <span class="traj-index">01</span>
         <span class="traj-role">Rector</span>
-        <span class="traj-org">Liceo Campo David</span>
+        <span class="traj-org">Liceo Campo David · 2025–actualidad</span>
         <span class="traj-tag traj-tag-blue">Dirección institucional</span>
       </div>
       <div class="traj-row reveal reveal--fade" style="--d:1">
         <span class="traj-index">02</span>
-        <span class="traj-role">Docente de Matemáticas</span>
-        <span class="traj-org">Liceo Campo David</span>
-        <span class="traj-tag traj-tag-violet">Aula y acompañamiento</span>
+        <span class="traj-role">Coordinador Académico General</span>
+        <span class="traj-org">Liceo Campo David · 2024–2025</span>
+        <span class="traj-tag traj-tag-violet">Coordinación pedagógica</span>
       </div>
       <div class="traj-row reveal reveal--fade" style="--d:2">
         <span class="traj-index">03</span>
-        <span class="traj-role">Jefe del Departamento de Matemáticas</span>
-        <span class="traj-org">Gimnasio Campestre Marie Curie</span>
+        <span class="traj-role">Jefe de Área de Matemáticas</span>
+        <span class="traj-org">Liceo Campo David · 2022–2024</span>
         <span class="traj-tag traj-tag-green">Liderazgo curricular</span>
       </div>
       <div class="traj-row reveal reveal--fade" style="--d:3">
         <span class="traj-index">04</span>
-        <span class="traj-role">Coordinador Académico</span>
-        <span class="traj-org">Gimnasio Campestre Marie Curie</span>
-        <span class="traj-tag traj-tag-orange">Coordinación pedagógica</span>
+        <span class="traj-role">Docente de Matemáticas · Bachillerato</span>
+        <span class="traj-org">Liceo Campo David · desde 2021</span>
+        <span class="traj-tag traj-tag-orange">Aula y acompañamiento</span>
+      </div>
+      <div class="traj-row reveal reveal--fade" style="--d:4">
+        <span class="traj-index">05</span>
+        <span class="traj-role">Docente de Matemáticas · Bachillerato</span>
+        <span class="traj-org">Gimnasio Campestre Marie Curie · 2014–2020</span>
+        <span class="traj-tag traj-tag-red">Aula, Pre-ICFES y jefatura de nivel</span>
+      </div>
+      <div class="traj-row reveal reveal--fade" style="--d:5">
+        <span class="traj-index">06</span>
+        <span class="traj-role">Validador de Preguntas Tipo ICFES</span>
+        <span class="traj-org">Corpoeducación · 2019</span>
+        <span class="traj-tag traj-tag-teal">Diseño de evaluación</span>
       </div>
     </div>
   </div>
@@ -1694,8 +1737,8 @@ body.nav-open { overflow: hidden; }
         <label>Servicio de interés
           <select name="servicio">
             <option>Clases visuales</option>
-            <option>Diagnóstico 10 preguntas</option>
-            <option>Diagnóstico 25 preguntas completo</option>
+            <option>Asesoría puntual</option>
+            <option>Plan de preparación Saber 11</option>
           </select>
         </label>
         <label>WhatsApp o correo de contacto
@@ -1703,7 +1746,6 @@ body.nav-open { overflow: hidden; }
         </label>
       </div>
       <button type="submit" class="btn btn-orange">Enviar solicitud</button>
-      <p class="form-note">* Conecta este formulario a tu cuenta de Formspree (ver README) para recibir las solicitudes en aprendizajematematicas2718@gmail.com.</p>
     </form>
   </div>
 </section>
@@ -1745,11 +1787,9 @@ document.addEventListener('DOMContentLoaded', () => {
     initReveals();
     initParallax();
     initTabs();
-    initShapes();
     initAlgebraTiles();
     initFunctionPlot();
     initMindMap();
-    initCounters();
     initScrollCue();
     initMotionCanvas();
     initVideoCards();
@@ -1921,50 +1961,11 @@ function initScrollCue() {
 }
 
 /* ---------------------------------------------------------
-   Contadores animados (cifras)
---------------------------------------------------------- */
-function initCounters() {
-  const numbers = document.querySelectorAll('.stat-number');
-  if (!numbers.length) return;
-
-  function animate(el) {
-    const target = parseFloat(el.dataset.count || '0');
-    const suffix = el.dataset.suffix || '';
-    if (prefersReducedMotion) {
-      el.textContent = `${target}${suffix}`;
-      return;
-    }
-    const duration = 1200;
-    const start = performance.now();
-    function tick(now) {
-      const progress = Math.min(1, (now - start) / duration);
-      const eased = 1 - Math.pow(1 - progress, 3);
-      const value = Math.round(target * eased);
-      el.textContent = `${value}${suffix}`;
-      if (progress < 1) requestAnimationFrame(tick);
-    }
-    requestAnimationFrame(tick);
-  }
-
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach((entry) => {
-      if (entry.isIntersecting) {
-        animate(entry.target);
-        observer.unobserve(entry.target);
-      }
-    });
-  }, { threshold: 0.6 });
-
-  numbers.forEach((el) => observer.observe(el));
-}
-
-/* ---------------------------------------------------------
    Laboratorio — pestañas
 --------------------------------------------------------- */
 function initTabs() {
   const tabs = document.querySelectorAll('.lab-tab');
   const panels = {
-    manipulativos: document.getElementById('panel-manipulativos'),
     algebra: document.getElementById('panel-algebra'),
     geometria: document.getElementById('panel-geometria'),
     mapas: document.getElementById('panel-mapas'),
@@ -1986,94 +1987,6 @@ function initTabs() {
       // mientras estaban en display:none — recalculan su tamaño ahora.
       window.dispatchEvent(new Event('resize'));
     });
-  });
-}
-
-/* ---------------------------------------------------------
-   Laboratorio — manipulativos arrastrables
---------------------------------------------------------- */
-function initShapes() {
-  const canvas = document.getElementById('shapeCanvas');
-  const areaLabel = document.getElementById('areaTotal');
-  const resetBtn = document.getElementById('resetShapes');
-  if (!canvas) return;
-
-  const pieceDefs = [
-    { area: 4, color: '#2563EB', w: 80, h: 80, shape: 'M0,0 H80 V80 H0 Z' },
-    { area: 4.5, color: '#7C3AED', w: 100, h: 90, shape: 'M0,90 L50,0 L100,90 Z' },
-    { area: 6, color: '#F97316', w: 120, h: 50, shape: 'M0,0 H120 V50 H0 Z' },
-    { area: 3, color: '#EF4444', w: 70, h: 70, shape: 'M35,0 L70,35 L35,70 L0,35 Z' },
-    { area: 4, color: '#16A34A', w: 80, h: 76, shape: 'M40,0 L80,29 L64,76 L16,76 L0,29 Z' },
-  ];
-
-  function layout() {
-    canvas.innerHTML = '';
-    const cw = canvas.clientWidth;
-    const ch = canvas.clientHeight;
-    let total = 0;
-
-    pieceDefs.forEach((def, i) => {
-      total += def.area;
-      const el = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
-      el.classList.add('manip-piece');
-      el.setAttribute('width', def.w);
-      el.setAttribute('height', def.h);
-      el.setAttribute('viewBox', `0 0 ${def.w} ${def.h}`);
-      el.innerHTML = `<path d="${def.shape}" fill="${def.color}" fill-opacity="0.85" stroke="${def.color}" stroke-width="2"/>`;
-
-      const startX = 20 + (i % 3) * (cw - 60) / 3;
-      const startY = 20 + Math.floor(i / 3) * (ch - 120) / 2 + (i % 2) * 20;
-      el.style.left = `${Math.max(10, Math.min(cw - def.w - 10, startX))}px`;
-      el.style.top = `${Math.max(10, Math.min(ch - def.h - 10, startY))}px`;
-
-      makeDraggable(el, canvas);
-      canvas.appendChild(el);
-    });
-
-    if (areaLabel) areaLabel.textContent = total.toFixed(1);
-  }
-
-  function makeDraggable(el, bounds) {
-    let offsetX = 0, offsetY = 0, dragging = false;
-
-    const onDown = (clientX, clientY) => {
-      const rect = el.getBoundingClientRect();
-      offsetX = clientX - rect.left;
-      offsetY = clientY - rect.top;
-      dragging = true;
-      el.style.zIndex = 10;
-    };
-    const onMove = (clientX, clientY) => {
-      if (!dragging) return;
-      const boundsRect = bounds.getBoundingClientRect();
-      let x = clientX - boundsRect.left - offsetX;
-      let y = clientY - boundsRect.top - offsetY;
-      x = Math.max(-20, Math.min(bounds.clientWidth - 20, x));
-      y = Math.max(-20, Math.min(bounds.clientHeight - 20, y));
-      el.style.left = `${x}px`;
-      el.style.top = `${y}px`;
-    };
-    const onUp = () => { dragging = false; el.style.zIndex = 1; };
-
-    el.addEventListener('mousedown', (e) => onDown(e.clientX, e.clientY));
-    window.addEventListener('mousemove', (e) => onMove(e.clientX, e.clientY));
-    window.addEventListener('mouseup', onUp);
-
-    el.addEventListener('touchstart', (e) => {
-      const t = e.touches[0];
-      onDown(t.clientX, t.clientY);
-    }, { passive: true });
-    window.addEventListener('touchmove', (e) => {
-      const t = e.touches[0];
-      onMove(t.clientX, t.clientY);
-    }, { passive: true });
-    window.addEventListener('touchend', onUp);
-  }
-
-  layout();
-  if (resetBtn) resetBtn.addEventListener('click', layout);
-  window.addEventListener('resize', () => {
-    if (!document.getElementById('panel-manipulativos').classList.contains('hidden')) layout();
   });
 }
 
@@ -2528,24 +2441,27 @@ function initMindMap() {
   if (!svg) return;
 
   const nodes = [
-    { id: 'patrones', label: 'Patrones numéricos', x: 90, y: 160, color: '#2563EB',
-      desc: 'Punto de partida: reconocer regularidades en secuencias de números.' },
-    { id: 'funciones', label: 'Función', x: 260, y: 90, color: '#7C3AED',
-      desc: 'Generaliza un patrón como una relación entre variables.' },
-    { id: 'lineal', label: 'Función lineal', x: 260, y: 230, color: '#7C3AED',
-      desc: 'Caso particular de función con razón de cambio constante.' },
-    { id: 'cuadratica', label: 'Función cuadrática', x: 430, y: 90, color: '#16A34A',
-      desc: 'Modela fenómenos con tasa de cambio variable — clave en el nivel 3 y 4 del Icfes.' },
-    { id: 'sistemas', label: 'Sistemas de ecuaciones', x: 430, y: 230, color: '#16A34A',
-      desc: 'Combina varias funciones lineales para resolver problemas con múltiples condiciones.' },
-    { id: 'optimizacion', label: 'Modelos de optimización', x: 580, y: 160, color: '#F97316',
-      desc: 'Aplica funciones cuadráticas y sistemas para maximizar o minimizar una cantidad.' },
+    { id: 'centro', label: 'Matemáticas', x: 320, y: 210, r: 34, color: '#0F172A',
+      desc: 'El punto de encuentro de las seis áreas — cada una aporta un lenguaje distinto para resolver problemas.' },
+    { id: 'algebra', label: 'Álgebra', x: 470, y: 210, color: '#7C3AED',
+      desc: 'Generaliza la aritmética con símbolos y ecuaciones: variables, expresiones, funciones y sistemas.' },
+    { id: 'calculo', label: 'Cálculo', x: 395, y: 80, color: '#EF4444',
+      desc: 'Estudia el cambio y la acumulación — límites, derivadas e integrales, apoyado en álgebra y trigonometría.' },
+    { id: 'trigonometria', label: 'Trigonometría', x: 245, y: 80, color: '#F97316',
+      desc: 'Relaciones entre ángulos y lados de un triángulo — extiende la geometría hacia las funciones periódicas.' },
+    { id: 'geometria', label: 'Geometría', x: 170, y: 210, color: '#16A34A',
+      desc: 'Formas, medidas y transformaciones en el plano y el espacio: área, volumen, semejanza y simetría.' },
+    { id: 'estadistica', label: 'Estadística', x: 245, y: 340, color: '#0891B2',
+      desc: 'Recolecta, organiza e interpreta datos para describir fenómenos y tomar decisiones informadas.' },
+    { id: 'aritmetica', label: 'Aritmética', x: 395, y: 340, color: '#2563EB',
+      desc: 'Números, operaciones y proporcionalidad — la base sobre la que se construyen las demás áreas.' },
   ];
 
   const edges = [
-    ['patrones', 'funciones'], ['patrones', 'lineal'],
-    ['funciones', 'cuadratica'], ['lineal', 'sistemas'],
-    ['cuadratica', 'optimizacion'], ['sistemas', 'optimizacion'],
+    ['centro', 'algebra'], ['centro', 'calculo'], ['centro', 'trigonometria'],
+    ['centro', 'geometria'], ['centro', 'estadistica'], ['centro', 'aritmetica'],
+    ['aritmetica', 'algebra'], ['algebra', 'calculo'], ['calculo', 'trigonometria'],
+    ['trigonometria', 'geometria'], ['geometria', 'estadistica'], ['estadistica', 'aritmetica'],
   ];
 
   const svgNS = 'http://www.w3.org/2000/svg';
@@ -2601,17 +2517,18 @@ function initMindMap() {
     g.dataset.id = n.id;
 
     const circle = document.createElementNS(svgNS, 'circle');
+    const radius = n.r || 30;
     circle.setAttribute('cx', n.x); circle.setAttribute('cy', n.y);
-    circle.setAttribute('r', 30);
+    circle.setAttribute('r', radius);
     circle.setAttribute('fill', n.color);
-    circle.setAttribute('fill-opacity', '0.14');
+    circle.setAttribute('fill-opacity', n.id === 'centro' ? '0.85' : '0.14');
     circle.setAttribute('stroke', n.color);
     circle.setAttribute('stroke-width', '2');
     g.appendChild(circle);
 
     const text = document.createElementNS(svgNS, 'text');
     text.setAttribute('x', n.x);
-    text.setAttribute('y', n.y + 48);
+    text.setAttribute('y', n.y + radius + 18);
     text.setAttribute('text-anchor', 'middle');
     text.setAttribute('font-size', '12');
     text.setAttribute('font-family', 'Manrope, sans-serif');
