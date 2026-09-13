@@ -691,11 +691,33 @@ body.nav-open { overflow: hidden; }
   transition: border-color 0.3s var(--ease), background 0.3s var(--ease);
 }
 .process-item:hover { border-left-color: var(--accent, var(--blue)); background: var(--paper-soft); }
-.process-item:nth-child(1) { --accent: var(--blue); }
-.process-item:nth-child(2) { --accent: var(--violet); }
-.process-item:nth-child(3) { --accent: var(--orange); }
+.process-item:nth-child(1) { --accent: var(--blue); --accent-tint: rgba(37, 99, 235, 0.08); }
+.process-item:nth-child(2) { --accent: var(--violet); --accent-tint: rgba(124, 58, 237, 0.08); }
+.process-item:nth-child(3) { --accent: var(--orange); --accent-tint: rgba(249, 115, 22, 0.08); }
 @media (min-width: 700px) {
   .process-item { grid-template-columns: 120px 1fr; }
+}
+@media (min-width: 920px) {
+  .process-item { grid-template-columns: 120px 1fr 88px; }
+}
+.process-icon {
+  display: none;
+}
+@media (min-width: 920px) {
+  .process-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 72px;
+    height: 72px;
+    border-radius: 50%;
+    background: var(--accent-tint, rgba(37, 99, 235, 0.08));
+    color: var(--accent, var(--blue));
+    justify-self: end;
+    transition: transform 0.3s var(--ease);
+  }
+  .process-item:hover .process-icon { transform: scale(1.06); }
+  .process-icon svg { width: 30px; height: 30px; }
 }
 .process-num {
   font-family: var(--font-display);
@@ -1385,7 +1407,7 @@ body.nav-open { overflow: hidden; }
   </div>
 
   <div class="wrap hero-inner">
-    <p class="eyebrow reveal reveal--fade">clases visuales · preparación saber 11</p>
+    <p class="eyebrow reveal reveal--fade">Clases visuales · preparación saber 11</p>
     <h1 class="hero-title">
       <span class="reveal reveal--lines" style="--d:0">Las matemáticas,</span>
       <span class="reveal reveal--lines" style="--d:1">comprendidas</span>
@@ -1415,7 +1437,7 @@ body.nav-open { overflow: hidden; }
 <section class="manifesto">
   <div class="manifesto-bg parallax-layer" data-speed="0.1" aria-hidden="true">01</div>
   <div class="wrap">
-    <p class="eyebrow reveal reveal--fade">el porqué</p>
+    <p class="eyebrow reveal reveal--fade">El porqué</p>
     <p class="manifesto-text">
       <span class="line reveal reveal--lines" style="--d:0">Enseñamos matemáticas empezando por el concepto,</span>
       <span class="line reveal reveal--lines" style="--d:1">no por la fórmula memorizada. Cada idea se construye,</span>
@@ -1426,10 +1448,19 @@ body.nav-open { overflow: hidden; }
   </div>
 </section>
 
+<!-- ============ FUNCIONES EN MOVIMIENTO ============ -->
+<section class="motion" aria-hidden="false">
+  <canvas id="motionCanvas" class="motion-canvas" aria-hidden="true"></canvas>
+  <div class="wrap motion-inner">
+    <p class="eyebrow reveal reveal--fade">En movimiento</p>
+    <p class="motion-text reveal reveal--lines">Cada función tiene un pulso propio —<br>obsérvalo antes de calcularlo.</p>
+  </div>
+</section>
+
 <!-- ============ ANIMACIONES Y VIDEOS ============ -->
 <section id="videos" class="videos">
   <div class="wrap">
-    <p class="eyebrow reveal reveal--fade">en video</p>
+    <p class="eyebrow reveal reveal--fade">En video</p>
     <h2 class="section-title reveal reveal--fade">Algunas ideas se entienden mejor en movimiento</h2>
 
     <div class="video-grid">
@@ -1485,8 +1516,8 @@ body.nav-open { overflow: hidden; }
 <!-- ============ COMPETENCIAS ============ -->
 <section id="competencias" class="competencias">
   <div class="wrap">
-    <p class="eyebrow reveal reveal--fade">tres competencias</p>
-    <h2 class="section-title reveal reveal--fade">Lo que cada clase pone en juego</h2>
+    <p class="eyebrow reveal reveal--fade">Tres competencias</p>
+    <h2 class="section-title reveal reveal--fade">Competencias a desarrollar y/o evaluar</h2>
 
     <div class="comp-grid">
       <article class="comp-card reveal reveal--up" style="--accent: var(--blue);">
@@ -1533,7 +1564,7 @@ body.nav-open { overflow: hidden; }
 <!-- ============ PROCESO ============ -->
 <section id="proceso" class="process">
   <div class="wrap">
-    <p class="eyebrow reveal reveal--fade">nuestro proceso</p>
+    <p class="eyebrow reveal reveal--fade">Nuestro proceso</p>
     <h2 class="section-title reveal reveal--fade">No enseñamos para el examen.<br>Preparamos para entender.</h2>
 
     <div class="process-list">
@@ -1545,6 +1576,13 @@ body.nav-open { overflow: hidden; }
             estudiante, sin suposiciones y con retroalimentación directa
             en la misma sesión.</p>
         </div>
+        <div class="process-icon" aria-hidden="true">
+          <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.2">
+            <circle cx="24" cy="24" r="18"/>
+            <circle cx="24" cy="24" r="10"/>
+            <circle cx="24" cy="24" r="2.6" fill="currentColor" stroke="none"/>
+          </svg>
+        </div>
       </article>
 
       <article class="process-item reveal reveal--left" style="--d:1">
@@ -1555,6 +1593,13 @@ body.nav-open { overflow: hidden; }
             construyen la comprensión antes de formalizarla — el mismo
             espíritu de Polypad y GeoGebra.</p>
         </div>
+        <div class="process-icon" aria-hidden="true">
+          <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round">
+            <rect x="6" y="22" width="16" height="16" rx="2"/>
+            <polygon points="34,6 44,24 24,24"/>
+            <circle cx="34" cy="34" r="9"/>
+          </svg>
+        </div>
       </article>
 
       <article class="process-item reveal reveal--left" style="--d:2">
@@ -1564,6 +1609,14 @@ body.nav-open { overflow: hidden; }
           <p>Pruebas estandarizadas por competencias, con retroalimentación
             clara sobre los aciertos y un plan de acción personalizado.</p>
         </div>
+        <div class="process-icon" aria-hidden="true">
+          <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M8 40 V27"/>
+            <path d="M20 40 V15"/>
+            <path d="M32 40 V22"/>
+            <path d="M41 10 L33.5 19 L29 14.5"/>
+          </svg>
+        </div>
       </article>
     </div>
   </div>
@@ -1572,8 +1625,8 @@ body.nav-open { overflow: hidden; }
 <!-- ============ LABORATORIO VISUAL INTERACTIVO ============ -->
 <section id="laboratorio" class="lab">
   <div class="wrap">
-    <p class="eyebrow reveal reveal--fade">metodología</p>
-    <h2 class="section-title reveal reveal--fade">Un laboratorio para tocar, mover y comprobar cada concepto</h2>
+    <p class="eyebrow reveal reveal--fade">Metodología</p>
+    <h2 class="section-title reveal reveal--fade">Un laboratorio para construir, mover y comprobar cada concepto</h2>
     <p class="section-lead reveal reveal--fade">
       Antes de memorizar una fórmula, la exploramos con álgebra visual,
       geometría dinámica y mapas conceptuales.
@@ -1657,20 +1710,11 @@ body.nav-open { overflow: hidden; }
   </div>
 </section>
 
-<!-- ============ FUNCIONES EN MOVIMIENTO ============ -->
-<section class="motion" aria-hidden="false">
-  <canvas id="motionCanvas" class="motion-canvas" aria-hidden="true"></canvas>
-  <div class="wrap motion-inner">
-    <p class="eyebrow reveal reveal--fade">en movimiento</p>
-    <p class="motion-text reveal reveal--lines">Cada función tiene un pulso propio —<br>obsérvalo antes de calcularlo.</p>
-  </div>
-</section>
-
 <!-- ============ TRAYECTORIA ============ -->
 <section id="trayectoria" class="trajectory">
   <div class="trajectory-bg parallax-layer" data-speed="0.08" aria-hidden="true">τ</div>
   <div class="wrap">
-    <p class="eyebrow reveal reveal--fade">trayectoria</p>
+    <p class="eyebrow reveal reveal--fade">Trayectoria</p>
     <h2 class="section-title reveal reveal--fade">Formación desde dentro del aula y desde la dirección académica</h2>
 
     <div class="traj-list">
@@ -1717,7 +1761,7 @@ body.nav-open { overflow: hidden; }
 <!-- ============ CONTACTO ============ -->
 <section id="contacto" class="contact">
   <div class="wrap contact-inner">
-    <p class="eyebrow reveal reveal--fade">contacto</p>
+    <p class="eyebrow reveal reveal--fade">Contacto</p>
     <h2 class="contact-title reveal reveal--lines">¿Empezamos?</h2>
     <p class="contact-sub reveal reveal--fade">
       Cuéntanos el grado y el objetivo del estudiante — te respondemos
