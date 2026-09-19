@@ -561,6 +561,13 @@ body.nav-open { overflow: hidden; }
   .hero-stat-bars i { animation: none; height: var(--h); opacity: 1; }
 }
 
+/* --- animación 3D: cáscara esférica ↔ área lateral del cilindro --- */
+.hero-3d-canvas {
+  width: clamp(240px, 30vw, 400px);
+  height: clamp(240px, 30vw, 400px);
+  touch-action: none;
+}
+
 .hero-inner {
   position: relative;
   z-index: 2;
@@ -645,21 +652,15 @@ body.nav-open { overflow: hidden; }
   padding: 120px 0;
   overflow: hidden;
 }
-.manifesto-bg {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  font-family: var(--font-display);
-  font-size: clamp(14rem, 34vw, 30rem);
-  font-weight: 600;
-  color: var(--ink);
-  opacity: 0.035;
-  line-height: 1;
-  z-index: 0;
-  user-select: none;
+.manifesto-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 56px;
+  flex-wrap: wrap;
 }
-.manifesto .wrap { position: relative; z-index: 1; }
+.manifesto-copy { flex: 1 1 420px; }
+.manifesto-3d { flex: 0 0 auto; display: flex; justify-content: center; margin: 0 auto; }
 .manifesto-text {
   font-family: var(--font-display);
   font-weight: 400;
@@ -1084,6 +1085,8 @@ body.nav-open { overflow: hidden; }
 }
 .contact-form .btn { align-self: flex-start; margin-top: 6px; }
 .form-note { font-size: 0.8rem; color: #94A3B8; margin: 0; }
+.contact-cta { display: flex; flex-direction: column; align-items: flex-start; gap: 16px; }
+.contact-cta .btn { padding: 18px 38px; font-size: 1.02rem; }
 
 /* ================================================================
    FUNCIONES EN MOVIMIENTO — banda ambiental animada
@@ -1435,16 +1438,20 @@ body.nav-open { overflow: hidden; }
 
 <!-- ============ MANIFIESTO ============ -->
 <section class="manifesto">
-  <div class="manifesto-bg parallax-layer" data-speed="0.1" aria-hidden="true">01</div>
-  <div class="wrap">
-    <p class="eyebrow reveal reveal--fade">El porqué</p>
-    <p class="manifesto-text">
-      <span class="line reveal reveal--lines" style="--d:0">Enseñamos matemáticas empezando por el concepto,</span>
-      <span class="line reveal reveal--lines" style="--d:1">no por la fórmula memorizada. Cada idea se construye,</span>
-      <span class="line reveal reveal--lines" style="--d:2">se mueve y se comprueba antes de escribirse en el</span>
-      <span class="line reveal reveal--lines" style="--d:3">cuaderno — para que el estudiante entienda</span>
-      <span class="line reveal reveal--lines" style="--d:4"><em>por qué</em> funciona, no solo cómo aplicarlo.</span>
-    </p>
+  <div class="wrap manifesto-inner">
+    <div class="manifesto-copy">
+      <p class="eyebrow reveal reveal--fade">El porqué</p>
+      <p class="manifesto-text">
+        <span class="line reveal reveal--lines" style="--d:0">Enseñamos matemáticas empezando por el concepto,</span>
+        <span class="line reveal reveal--lines" style="--d:1">no por la fórmula memorizada. Cada idea se construye,</span>
+        <span class="line reveal reveal--lines" style="--d:2">se mueve y se comprueba antes de escribirse en el</span>
+        <span class="line reveal reveal--lines" style="--d:3">cuaderno — para que el estudiante entienda</span>
+        <span class="line reveal reveal--lines" style="--d:4"><em>por qué</em> funciona, no solo cómo aplicarlo.</span>
+      </p>
+    </div>
+    <div class="manifesto-3d reveal reveal--fade" style="--d:5">
+      <canvas id="archimedesCanvas" class="hero-3d-canvas" aria-label="Animación 3D: cáscara esférica transformándose en el área lateral de un cilindro y regresando a la esfera"></canvas>
+    </div>
   </div>
 </section>
 
@@ -1768,29 +1775,10 @@ body.nav-open { overflow: hidden; }
       con los siguientes pasos.
     </p>
 
-    <form class="contact-form reveal reveal--fade" id="contactForm" action="https://formspree.io/f/TU_ID_DE_FORMSPREE" method="POST">
-      <div class="form-row">
-        <label>Nombre del estudiante o acudiente
-          <input type="text" name="nombre" required>
-        </label>
-        <label>Grado / nivel
-          <input type="text" name="grado" required>
-        </label>
-      </div>
-      <div class="form-row">
-        <label>Servicio de interés
-          <select name="servicio">
-            <option>Clases visuales</option>
-            <option>Asesoría puntual</option>
-            <option>Plan de preparación Saber 11</option>
-          </select>
-        </label>
-        <label>WhatsApp o correo de contacto
-          <input type="text" name="contacto" required>
-        </label>
-      </div>
-      <button type="submit" class="btn btn-orange">Enviar solicitud</button>
-    </form>
+    <div class="contact-cta reveal reveal--fade">
+      <a href="https://forms.gle/TU_FORMULARIO_DE_GOOGLE" target="_blank" rel="noopener" class="btn btn-orange">Solicitar clase o asesoría</a>
+      <p class="form-note">Se abre el formulario de Google en una pestaña nueva — toma menos de un minuto.</p>
+    </div>
   </div>
 </section>
 
@@ -1836,6 +1824,7 @@ document.addEventListener('DOMContentLoaded', () => {
     initMindMap();
     initScrollCue();
     initMotionCanvas();
+    initArchimedesDemo();
     initVideoCards();
     initMobileNav();
     document.getElementById('year').textContent = new Date().getFullYear();
@@ -2647,6 +2636,256 @@ function initMotionCanvas() {
 
   function loop(t) {
     drawFrame(t);
+    requestAnimationFrame(loop);
+  }
+  requestAnimationFrame(loop);
+}
+
+/* ---------------------------------------------------------
+   Animación 3D — cáscara esférica que se transforma en el área
+   lateral de un cilindro (mismo radio y altura) y regresa,
+   al estilo del teorema de Arquímedes (inspirado en la
+   visualización de Grant Sanderson / 3blue1brown).
+--------------------------------------------------------- */
+function initArchimedesDemo() {
+  const canvas = document.getElementById('archimedesCanvas');
+  if (!canvas) return;
+  const ctx = canvas.getContext('2d');
+
+  const N_LAT = 12;    // bandas de altura (de polo a polo)
+  const N_LON = 24;    // sectores de longitud (alrededor)
+  const R = 1;          // radio de la esfera = radio del cilindro
+  const FOCAL = 3.4 * R; // distancia de cámara para la pseudo-perspectiva
+  const BLUE = [37, 99, 235];    // esfera — azul de marca
+  const ORANGE = [249, 115, 22]; // cilindro — naranja de marca
+
+  // parámetro de altura uniforme, de -R a R (mismo rango en esfera y cilindro:
+  // cada pieza "aterriza" a su misma altura, como en la demostración de Arquímedes)
+  const vSteps = [];
+  for (let i = 0; i < N_LAT; i++) vSteps.push(-R + (2 * R * i) / (N_LAT - 1));
+  const uSteps = [];
+  for (let j = 0; j <= N_LON; j++) uSteps.push((2 * Math.PI * j) / N_LON);
+
+  function radiusAt(height, t) {
+    const rSphere = Math.sqrt(Math.max(0, R * R - height * height));
+    return rSphere + t * (R - rSphere);
+  }
+
+  function project(x, y, z, w, h) {
+    const persp = FOCAL / (FOCAL + z);
+    const scale = Math.min(w, h) * 0.34;
+    return {
+      x: w / 2 + x * scale * persp,
+      y: h / 2 - y * scale * persp,
+      depth: z,
+    };
+  }
+
+  function lerpColor(t) {
+    const k = Math.max(0, Math.min(1, t));
+    const r = Math.round(BLUE[0] + (ORANGE[0] - BLUE[0]) * k);
+    const g = Math.round(BLUE[1] + (ORANGE[1] - BLUE[1]) * k);
+    const b = Math.round(BLUE[2] + (ORANGE[2] - BLUE[2]) * k);
+    return `${r}, ${g}, ${b}`;
+  }
+
+  function mapRange(v, inMin, inMax, outMin, outMax) {
+    const t = Math.max(0, Math.min(1, (v - inMin) / (inMax - inMin)));
+    return outMin + t * (outMax - outMin);
+  }
+
+  function roundRectPath(x, y, w, h, r) {
+    ctx.moveTo(x + r, y);
+    ctx.arcTo(x + w, y, x + w, y + h, r);
+    ctx.arcTo(x + w, y + h, x, y + h, r);
+    ctx.arcTo(x, y + h, x, y, r);
+    ctx.arcTo(x, y, x + w, y, r);
+    ctx.closePath();
+  }
+
+  // cada pieza tiene su propio "orden de despegue": la distancia angular de
+  // su centro (sobre la esfera) a un punto fijo de arranque — así el
+  // cascarón se rompe desde un punto y la rotura se extiende hacia afuera,
+  // igual que en la demostración, en vez de moverse todo en bloque
+  const startY = 0.5 * R, startU = 0.4;
+  const startR = Math.sqrt(Math.max(0, R * R - startY * startY));
+  const startVec = { x: (startR * Math.cos(startU)) / R, y: startY / R, z: (startR * Math.sin(startU)) / R };
+  const patchOrder = [];
+  for (let i = 0; i < N_LAT - 1; i++) {
+    const heightMid = (vSteps[i] + vSteps[i + 1]) / 2;
+    const rMid = Math.sqrt(Math.max(0, R * R - heightMid * heightMid));
+    const row = [];
+    for (let j = 0; j < N_LON; j++) {
+      const uMid = (uSteps[j] + uSteps[j + 1]) / 2;
+      const vec = { x: (rMid * Math.cos(uMid)) / R, y: heightMid / R, z: (rMid * Math.sin(uMid)) / R };
+      const dot = Math.max(-1, Math.min(1, vec.x * startVec.x + vec.y * startVec.y + vec.z * startVec.z));
+      row.push(Math.acos(dot) / Math.PI); // 0 (arranca primero) .. 1 (arranca de último)
+    }
+    patchOrder.push(row);
+  }
+
+  const STAGGER = 0.6; // fracción del tramo reservada a la propagación de la rotura
+  function staggerProgress(leg, order) {
+    return Math.max(0, Math.min(1, (leg - order * STAGGER) / (1 - STAGGER)));
+  }
+
+  function ease(x) { return (1 - Math.cos(Math.max(0, Math.min(1, x)) * Math.PI)) / 2; }
+
+  // línea de tiempo: esfera (reposo) → cilindro (reposo) → esfera, con una
+  // breve pausa en cada extremo para que la forma se aprecie con claridad
+  const D = 3800;    // ms: duración de cada tramo (esfera↔cilindro)
+  const PAUSE = 550;  // ms: pausa en cada extremo
+  const CYCLE = 2 * (D + PAUSE);
+
+  function legAt(elapsed) {
+    const pos = elapsed % CYCLE;
+    if (pos < D) return ease(pos / D);
+    if (pos < D + PAUSE) return 1;
+    if (pos < D + PAUSE + D) return 1 - ease((pos - D - PAUSE) / D);
+    return 0;
+  }
+
+  function resize() {
+    const dpr = Math.min(window.devicePixelRatio || 1, 2);
+    canvas.width = canvas.clientWidth * dpr;
+    canvas.height = canvas.clientHeight * dpr;
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    drawFrame(prefersReducedMotion ? D + PAUSE / 2 : 0); // fijo en pleno cilindro: se ve la fórmula y el resultado
+  }
+
+  function drawFrame(elapsed) {
+    const w = canvas.clientWidth;
+    const h = canvas.clientHeight;
+    ctx.clearRect(0, 0, w, h);
+    if (!w || !h) return;
+
+    const leg = legAt(elapsed);
+
+    // el cilindro-guía y las piezas que vuelan rotan en direcciones y
+    // velocidades distintas, para que se perciban como dos cuerpos separados
+    const angleGuide = elapsed / 4200;
+    const angleShape = -elapsed / 3100;
+    const cosG = Math.cos(angleGuide), sinG = Math.sin(angleGuide);
+    const cosS = Math.cos(angleShape), sinS = Math.sin(angleShape);
+
+    function rotateProject(x0, z0, height, cosA, sinA) {
+      const x = x0 * cosA - z0 * sinA;
+      const zRot = x0 * sinA + z0 * cosA;
+      return project(x, height, zRot, w, h);
+    }
+
+    const maxDepth = R * 1.2;
+
+    // silueta fija del cilindro que circunscribe la esfera: referencia
+    // siempre visible, con su propio giro independiente
+    const topRing = uSteps.map((u) => rotateProject(R * Math.cos(u), R * Math.sin(u), R, cosG, sinG));
+    const bottomRing = uSteps.map((u) => rotateProject(R * Math.cos(u), R * Math.sin(u), -R, cosG, sinG));
+    [topRing, bottomRing].forEach((ring) => {
+      ctx.beginPath();
+      ring.forEach((p, j) => (j === 0 ? ctx.moveTo(p.x, p.y) : ctx.lineTo(p.x, p.y)));
+      ctx.closePath();
+      ctx.setLineDash([3, 4]);
+      ctx.strokeStyle = 'rgba(15, 23, 42, 0.22)';
+      ctx.lineWidth = 1;
+      ctx.stroke();
+      ctx.setLineDash([]);
+    });
+    const GUIDE_LINES = 8;
+    for (let g = 0; g < GUIDE_LINES; g++) {
+      const u = (2 * Math.PI * g) / GUIDE_LINES;
+      const top = rotateProject(R * Math.cos(u), R * Math.sin(u), R, cosG, sinG);
+      const bottom = rotateProject(R * Math.cos(u), R * Math.sin(u), -R, cosG, sinG);
+      ctx.beginPath();
+      ctx.setLineDash([3, 4]);
+      ctx.moveTo(top.x, top.y);
+      ctx.lineTo(bottom.x, bottom.y);
+      ctx.strokeStyle = 'rgba(15, 23, 42, 0.16)';
+      ctx.lineWidth = 1;
+      ctx.stroke();
+      ctx.setLineDash([]);
+    }
+
+    // cada pieza del cascarón se calcula por separado — con su propio avance
+    // (tp), color, "vuelo" (bulto hacia afuera a mitad de camino) y una
+    // pequeña separación de sus vecinas mientras está en tránsito — para que
+    // se vea como piezas pequeñas que se desprenden y vuelan, no como una
+    // superficie que simplemente cambia de tamaño
+    const patches = [];
+    for (let i = 0; i < N_LAT - 1; i++) {
+      const h0 = vSteps[i], h1 = vSteps[i + 1];
+      for (let j = 0; j < N_LON; j++) {
+        const u0 = uSteps[j], u1 = uSteps[j + 1];
+        const tp = staggerProgress(leg, patchOrder[i][j]);
+        const bulge = R * 0.1 * Math.sin(tp * Math.PI);
+        const inset = 1 - 0.22 * Math.sin(tp * Math.PI);
+
+        const corners = [
+          [u0, h0], [u1, h0], [u1, h1], [u0, h1],
+        ].map(([u, height]) => {
+          const radius = radiusAt(height, tp) + bulge;
+          return { x0: radius * Math.cos(u), z0: radius * Math.sin(u), height };
+        });
+        const centroid = corners.reduce(
+          (acc, c) => ({ x0: acc.x0 + c.x0 / 4, z0: acc.z0 + c.z0 / 4, height: acc.height + c.height / 4 }),
+          { x0: 0, z0: 0, height: 0 }
+        );
+        const projected = corners.map((c) => {
+          const x0 = centroid.x0 + (c.x0 - centroid.x0) * inset;
+          const z0 = centroid.z0 + (c.z0 - centroid.z0) * inset;
+          const height = centroid.height + (c.height - centroid.height) * inset;
+          return rotateProject(x0, z0, height, cosS, sinS);
+        });
+        const avgDepth = projected.reduce((s, p) => s + p.depth, 0) / projected.length;
+        patches.push({ pts: projected, avgDepth, rgb: lerpColor(tp) });
+      }
+    }
+    patches.sort((a, b) => b.avgDepth - a.avgDepth); // más lejos primero (algoritmo del pintor)
+
+    patches.forEach((patch) => {
+      const alpha = mapRange(patch.avgDepth, -maxDepth, maxDepth, 0.92, 0.15);
+      ctx.beginPath();
+      patch.pts.forEach((p, j) => (j === 0 ? ctx.moveTo(p.x, p.y) : ctx.lineTo(p.x, p.y)));
+      ctx.closePath();
+      ctx.fillStyle = `rgba(${patch.rgb}, ${alpha.toFixed(2)})`;
+      ctx.fill();
+      ctx.strokeStyle = `rgba(255, 255, 255, ${(alpha * 0.6).toFixed(2)})`;
+      ctx.lineWidth = 1;
+      ctx.stroke();
+    });
+
+    // franja con la fórmula final, al estilo del remate del video: aparece
+    // solo cuando el cascarón ya terminó de aterrizar sobre el cilindro
+    const badgeAlpha = mapRange(leg, 0.72, 1, 0, 1);
+    if (badgeAlpha > 0.02) {
+      const text = 'A = 4πr²';
+      const fontSize = Math.round(Math.max(14, Math.min(22, w * 0.075)));
+      ctx.font = `800 ${fontSize}px Manrope, sans-serif`;
+      const textW = ctx.measureText(text).width;
+      const padX = fontSize * 0.9, padY = fontSize * 0.55;
+      const pillW = textW + padX * 2;
+      const pillH = fontSize + padY * 2;
+      const cx = w / 2, cy = h * 0.88;
+
+      ctx.beginPath();
+      roundRectPath(cx - pillW / 2, cy - pillH / 2, pillW, pillH, pillH / 2);
+      ctx.fillStyle = `rgba(${ORANGE.join(', ')}, ${badgeAlpha.toFixed(2)})`;
+      ctx.fill();
+
+      ctx.fillStyle = `rgba(255, 255, 255, ${badgeAlpha.toFixed(2)})`;
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'middle';
+      ctx.fillText(text, cx, cy + 1);
+      ctx.textBaseline = 'alphabetic';
+    }
+  }
+
+  resize();
+  window.addEventListener('resize', resize);
+
+  if (prefersReducedMotion) return; // ya se dibujó un cuadro fijo en resize()
+
+  function loop(ts) {
+    drawFrame(ts);
     requestAnimationFrame(loop);
   }
   requestAnimationFrame(loop);
