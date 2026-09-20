@@ -523,11 +523,61 @@ body.nav-open { overflow: hidden; }
   from { stroke-dashoffset: 0; }
   to   { stroke-dashoffset: -78; }
 }
+
+/* --- construcción con regla y compás: líneas y arcos guía aparecen
+   antes de que se trace la figura final, como en una construcción
+   geométrica clásica (base, arcos de compás, y luego la figura) --- */
+.construct-line {
+  fill: none;
+  stroke-width: 1.2;
+  stroke-dasharray: 4 4;
+  opacity: 0;
+  animation: constructGuide 7s ease-in-out infinite;
+}
+.construct-arc {
+  fill: none;
+  stroke-width: 1.4;
+  opacity: 0;
+  animation: constructArcDraw 7s ease-in-out infinite;
+}
+.construct-pt { opacity: 0; animation: constructGuide 7s ease-in-out infinite; }
+.compass-arm {
+  fill: none;
+  stroke-width: 1.4;
+  opacity: 0;
+  transform-box: view-box;
+  transform-origin: 60px 60px;
+  animation: compassSweep 6s linear infinite;
+}
+.hero-shape-c .construct-arc, .hero-shape-c .construct-line,
+.hero-shape-c .construct-pt, .hero-shape-c .compass-arm { animation-duration: 6s; }
+.hero-shape-b .construct-arc, .hero-shape-b .construct-line,
+.hero-shape-b .construct-pt { animation-duration: 6.5s; }
+.hero-shape-b .hero-shape-draw { stroke-dasharray: 450; stroke-dashoffset: 450; animation-duration: 6.5s; }
+.hero-shape-e .construct-line, .hero-shape-e .construct-pt { animation-duration: 5.5s; animation-delay: 1.2s; }
+.hero-shape-e .hero-shape-draw { stroke-dasharray: 230; stroke-dashoffset: 230; animation-duration: 5.5s; animation-delay: 1.2s; }
+@keyframes constructGuide {
+  6%  { opacity: .55; }
+  30% { opacity: .55; }
+  42% { opacity: 0; }
+}
+@keyframes constructArcDraw {
+  6%  { opacity: .6; }
+  26% { stroke-dashoffset: 0; opacity: .6; }
+  38% { stroke-dashoffset: 0; opacity: .6; }
+  46% { opacity: 0; }
+}
+@keyframes compassSweep {
+  6%  { opacity: .55; }
+  40% { transform: rotate(360deg); opacity: .55; }
+  48% { opacity: 0; }
+}
 @media (prefers-reduced-motion: reduce) {
+  .construct-line, .construct-arc, .construct-pt, .compass-arm { animation: none; opacity: 0; }
   .hero-shape-draw, .shape-form, .hero-shape-flow { animation: none; opacity: .8; stroke-dashoffset: 0; transform: none; }
 }
 
-/* --- estadísticas "apareciendo": barras que crecen en bucle --- */
+/* --- estadística: población de figuras que se agrupa en un diagrama de barras --- */
 .hero-stat-card {
   background: #fff;
   border: 2px solid var(--ink);
@@ -535,30 +585,13 @@ body.nav-open { overflow: hidden; }
   padding: 14px 14px 12px;
   box-shadow: 5px 5px 0 0 var(--ink);
 }
-.hero-stat-bars { display: flex; align-items: flex-end; gap: 7px; height: 54px; }
-.hero-stat-bars i {
-  display: block;
-  width: 10px;
-  border-radius: 3px 3px 0 0;
-  background: var(--c);
-  height: 0;
-  animation: barGrow 5s var(--delay, 0s) ease-in-out infinite;
-}
+.hero-stat-canvas { display: block; width: 100%; height: 64px; }
 .hero-stat-label {
   display: block;
   margin-top: 9px;
   font-size: 0.62rem;
   font-weight: 700;
   color: var(--ink-soft);
-}
-@keyframes barGrow {
-  0%   { height: 2px; opacity: .35; }
-  40%  { height: var(--h); opacity: 1; }
-  75%  { height: var(--h); opacity: 1; }
-  100% { height: 2px; opacity: .35; }
-}
-@media (prefers-reduced-motion: reduce) {
-  .hero-stat-bars i { animation: none; height: var(--h); opacity: 1; }
 }
 
 /* --- animación 3D: cáscara esférica ↔ área lateral del cilindro --- */
@@ -1085,7 +1118,7 @@ body.nav-open { overflow: hidden; }
 }
 .contact-form .btn { align-self: flex-start; margin-top: 6px; }
 .form-note { font-size: 0.8rem; color: #94A3B8; margin: 0; }
-.contact-cta { display: flex; flex-direction: column; align-items: flex-start; gap: 16px; }
+.contact-cta { display: flex; flex-direction: column; align-items: center; gap: 16px; text-align: center; }
 .contact-cta .btn { padding: 18px 38px; font-size: 1.02rem; }
 
 /* ================================================================
@@ -1382,29 +1415,40 @@ body.nav-open { overflow: hidden; }
   <div class="hero-grid parallax-layer" data-speed="0.06" aria-hidden="true"></div>
 
   <svg class="hero-shape hero-shape-a parallax-layer" data-speed="0.18" viewBox="0 0 140 140" aria-hidden="true">
+    <line class="construct-line" x1="10" y1="10" x2="130" y2="10" stroke="#2563EB"/>
+    <line class="construct-line" x1="10" y1="10" x2="10" y2="130" stroke="#2563EB"/>
+    <path class="construct-arc" d="M28,10 A18,18 0 0,1 10,28" stroke="#2563EB" stroke-dasharray="30" stroke-dashoffset="30"/>
+    <circle class="construct-pt" cx="10" cy="10" r="2.4" fill="#2563EB"/>
     <rect class="hero-shape-draw" x="10" y="10" width="120" height="120" rx="14" fill="none" stroke="#2563EB" stroke-width="2"/>
   </svg>
   <svg class="hero-shape hero-shape-b parallax-layer" data-speed="0.32" viewBox="0 0 160 140" aria-hidden="true">
+    <line class="construct-line" x1="8" y1="132" x2="152" y2="132" stroke="#7C3AED"/>
+    <path class="construct-arc" d="M8,132 A143,143 0 0,1 80,8" stroke="#7C3AED" stroke-dasharray="150" stroke-dashoffset="150"/>
+    <path class="construct-arc" d="M152,132 A143,143 0 0,0 80,8" stroke="#7C3AED" stroke-dasharray="150" stroke-dashoffset="150"/>
+    <circle class="construct-pt" cx="8" cy="132" r="2.4" fill="#7C3AED"/>
+    <circle class="construct-pt" cx="152" cy="132" r="2.4" fill="#7C3AED"/>
+    <polygon class="hero-shape-draw" points="80,8 152,132 8,132" fill="none" stroke="#7C3AED" stroke-width="2"/>
     <g class="shape-form"><polygon points="80,8 152,132 8,132" fill="#7C3AED" opacity=".85"/></g>
   </svg>
   <svg class="hero-shape hero-shape-c parallax-layer" data-speed="0.12" viewBox="0 0 120 120" aria-hidden="true">
+    <line class="compass-arm" x1="60" y1="60" x2="60" y2="8" stroke="#16A34A"/>
+    <circle class="construct-pt" cx="60" cy="60" r="2.4" fill="#16A34A"/>
     <circle class="hero-shape-draw" cx="60" cy="60" r="52" fill="none" stroke="#16A34A" stroke-width="2.5"/>
   </svg>
   <svg class="hero-shape hero-shape-d parallax-layer" data-speed="0.24" viewBox="0 0 220 90" aria-hidden="true">
     <path class="hero-shape-flow" d="M4,70 C 40,10 70,110 106,60 C 142,10 172,110 216,50" fill="none" stroke="#F97316" stroke-width="3" stroke-linecap="round" opacity=".8"/>
   </svg>
   <svg class="hero-shape hero-shape-e parallax-layer" data-speed="0.4" viewBox="0 0 90 90" aria-hidden="true">
+    <line class="construct-line" x1="45" y1="4" x2="45" y2="86" stroke="#EF4444"/>
+    <line class="construct-line" x1="8" y1="45" x2="82" y2="45" stroke="#EF4444"/>
+    <circle class="construct-pt" cx="45" cy="45" r="2" fill="#EF4444"/>
+    <polygon class="hero-shape-draw" points="45,4 82,45 45,86 8,45" fill="none" stroke="#EF4444" stroke-width="2"/>
     <g class="shape-form"><polygon points="45,4 82,45 45,86 8,45" fill="#EF4444" opacity=".8"/></g>
   </svg>
 
   <div class="hero-shape hero-stat parallax-layer" data-speed="0.22" aria-hidden="true">
     <div class="hero-stat-card">
-      <div class="hero-stat-bars">
-        <i style="--h:42%; --c:var(--blue); --delay:0s"></i>
-        <i style="--h:70%; --c:var(--violet); --delay:0.25s"></i>
-        <i style="--h:90%; --c:var(--green); --delay:0.5s"></i>
-        <i style="--h:58%; --c:var(--orange); --delay:0.75s"></i>
-      </div>
+      <canvas id="statCanvas" class="hero-stat-canvas" aria-label="Animación: población de figuras que se agrupa en un diagrama de barras"></canvas>
       <span class="hero-stat-label">muestra poblacional</span>
     </div>
   </div>
@@ -1641,24 +1685,24 @@ body.nav-open { overflow: hidden; }
 
     <div class="lab-grid">
       <div class="lab-tabs reveal reveal--left" role="tablist" aria-label="Pilares del laboratorio visual">
-        <button type="button" data-tab="algebra" role="tab" aria-selected="true" class="lab-tab is-active" style="--accent: var(--blue); --accent-tint: rgba(37, 99, 235, 0.08);">
-          <span class="tab-head"><span class="tab-dot tab-dot-blue">1</span><span>Álgebra visual</span></span>
-          <p>Combina fichas de x², x y 1 para representar expresiones algebraicas — al estilo de los algebra tiles de Polypad.</p>
+        <button type="button" data-tab="mapas" role="tab" aria-selected="true" class="lab-tab is-active" style="--accent: var(--orange); --accent-tint: rgba(249, 115, 22, 0.08);">
+          <span class="tab-head"><span class="tab-dot tab-dot-orange">1</span><span>Rutas conceptuales</span></span>
+          <p>Explora cómo se conecta cada tema con los demás dentro del plan de estudio.</p>
         </button>
         <button type="button" data-tab="geometria" role="tab" aria-selected="false" class="lab-tab" style="--accent: var(--green); --accent-tint: rgba(22, 163, 74, 0.08);">
           <span class="tab-head"><span class="tab-dot tab-dot-green">2</span><span>Geometría dinámica</span></span>
           <p>Ajusta amplitud, frecuencia y corrimientos de una función seno en tiempo real.</p>
         </button>
-        <button type="button" data-tab="mapas" role="tab" aria-selected="false" class="lab-tab" style="--accent: var(--orange); --accent-tint: rgba(249, 115, 22, 0.08);">
-          <span class="tab-head"><span class="tab-dot tab-dot-orange">3</span><span>Rutas conceptuales</span></span>
-          <p>Explora cómo se conecta cada tema con los demás dentro del plan de estudio.</p>
+        <button type="button" data-tab="algebra" role="tab" aria-selected="false" class="lab-tab" style="--accent: var(--blue); --accent-tint: rgba(37, 99, 235, 0.08);">
+          <span class="tab-head"><span class="tab-dot tab-dot-blue">3</span><span>Álgebra visual</span></span>
+          <p>Combina fichas de x², x y 1 para representar expresiones algebraicas — al estilo de los algebra tiles de Polypad.</p>
         </button>
       </div>
 
       <div class="lab-panel-wrap reveal reveal--right">
         <div class="lab-panel-card">
 
-          <div id="panel-algebra" class="lab-panel">
+          <div id="panel-algebra" class="lab-panel hidden">
             <div class="lab-panel-head">
               <div>
                 <h3>Fichas de álgebra</h3>
@@ -1702,7 +1746,7 @@ body.nav-open { overflow: hidden; }
             <p class="lab-panel-foot" id="functionReadout"></p>
           </div>
 
-          <div id="panel-mapas" class="lab-panel hidden">
+          <div id="panel-mapas" class="lab-panel">
             <div class="lab-panel-head">
               <h3>Mapa de las matemáticas</h3>
               <p>Selecciona un área para ver sus temas clave y cómo se conecta con las demás.</p>
@@ -1776,8 +1820,8 @@ body.nav-open { overflow: hidden; }
     </p>
 
     <div class="contact-cta reveal reveal--fade">
-      <a href="https://forms.gle/TU_FORMULARIO_DE_GOOGLE" target="_blank" rel="noopener" class="btn btn-orange">Solicitar clase o asesoría</a>
-      <p class="form-note">Se abre el formulario de Google en una pestaña nueva — toma menos de un minuto.</p>
+      <a href="https://forms.gle/o9JJSgPXJm7tK6156" target="_blank" rel="noopener" class="btn btn-orange">Solicitar diagnóstico o clase</a>
+      <p class="form-note">Toma menos de un minuto.</p>
     </div>
   </div>
 </section>
@@ -1825,6 +1869,7 @@ document.addEventListener('DOMContentLoaded', () => {
     initScrollCue();
     initMotionCanvas();
     initArchimedesDemo();
+    initStatDemo();
     initVideoCards();
     initMobileNav();
     document.getElementById('year').textContent = new Date().getFullYear();
@@ -2655,9 +2700,15 @@ function initArchimedesDemo() {
   const N_LAT = 12;    // bandas de altura (de polo a polo)
   const N_LON = 24;    // sectores de longitud (alrededor)
   const R = 1;          // radio de la esfera = radio del cilindro
-  const FOCAL = 3.4 * R; // distancia de cámara para la pseudo-perspectiva
+  const FOCAL = 6 * R; // distancia de cámara para la pseudo-perspectiva (más alto = menos distorsión, esfera más redonda)
   const BLUE = [37, 99, 235];    // esfera — azul de marca
   const ORANGE = [249, 115, 22]; // cilindro — naranja de marca
+
+  // inclinación fija de cámara: mira el cuerpo ligeramente desde arriba para
+  // que se vea inclinado hacia la pantalla, como en la referencia (se
+  // aprecia el aro superior del cilindro y el "polo" de la esfera)
+  const TILT = -0.4; // ~23°
+  const cosT = Math.cos(TILT), sinT = Math.sin(TILT);
 
   // parámetro de altura uniforme, de -R a R (mismo rango en esfera y cilindro:
   // cada pieza "aterriza" a su misma altura, como en la demostración de Arquímedes)
@@ -2673,7 +2724,7 @@ function initArchimedesDemo() {
 
   function project(x, y, z, w, h) {
     const persp = FOCAL / (FOCAL + z);
-    const scale = Math.min(w, h) * 0.34;
+    const scale = Math.min(w, h) * 0.32;
     return {
       x: w / 2 + x * scale * persp,
       y: h / 2 - y * scale * persp,
@@ -2761,20 +2812,23 @@ function initArchimedesDemo() {
 
     const leg = legAt(elapsed);
 
-    // el cilindro-guía y las piezas que vuelan rotan en direcciones y
-    // velocidades distintas, para que se perciban como dos cuerpos separados
-    const angleGuide = elapsed / 4200;
-    const angleShape = -elapsed / 3100;
-    const cosG = Math.cos(angleGuide), sinG = Math.sin(angleGuide);
-    const cosS = Math.cos(angleShape), sinS = Math.sin(angleShape);
+    // el cilindro-guía y las piezas que vuelan comparten un único ángulo de
+    // rotación, para que ambos cuerpos se perciban siempre en la misma
+    // perspectiva, como un solo objeto visto desde el mismo punto de vista
+    const angle = elapsed / 4200;
+    const cosG = Math.cos(angle), sinG = Math.sin(angle);
+    const cosS = cosG, sinS = sinG;
 
     function rotateProject(x0, z0, height, cosA, sinA) {
       const x = x0 * cosA - z0 * sinA;
       const zRot = x0 * sinA + z0 * cosA;
-      return project(x, height, zRot, w, h);
+      // inclina el cuerpo hacia la pantalla mezclando altura y profundidad
+      const yTilt = height * cosT - zRot * sinT;
+      const zTilt = height * sinT + zRot * cosT;
+      return project(x, yTilt, zTilt, w, h);
     }
 
-    const maxDepth = R * 1.2;
+    const maxDepth = R * 1.35;
 
     // silueta fija del cilindro que circunscribe la esfera: referencia
     // siempre visible, con su propio giro independiente
@@ -2964,6 +3018,137 @@ function initMobileNav() {
   window.addEventListener('resize', () => {
     if (window.innerWidth >= 980 && overlay.classList.contains('is-open')) shut();
   });
+}
+
+/* ---------------------------------------------------------
+   Hero — muestra poblacional: figuras que se agrupan en un
+   diagrama de barras y luego vuelven a dispersarse, en bucle
+--------------------------------------------------------- */
+function initStatDemo() {
+  const canvas = document.getElementById('statCanvas');
+  if (!canvas) return;
+  const ctx = canvas.getContext('2d');
+
+  // 4 categorías con la misma proporción que tenía el diagrama de barras
+  // original (42% / 70% / 90% / 58%), ahora representadas como el conteo
+  // de "personas" de una muestra poblacional
+  const GROUPS = [
+    { rgb: [37, 99, 235], n: 5 },
+    { rgb: [124, 58, 237], n: 8 },
+    { rgb: [22, 163, 74], n: 10 },
+    { rgb: [249, 115, 22], n: 6 },
+  ];
+
+  // pseudo-aleatorio determinista: misma disposición dispersa en cada carga
+  function rand(seed) {
+    const x = Math.sin(seed * 12.9898) * 43758.5453;
+    return x - Math.floor(x);
+  }
+
+  const dots = [];
+  let seed = 1;
+  GROUPS.forEach((g, gi) => {
+    for (let i = 0; i < g.n; i++) {
+      dots.push({
+        group: gi,
+        rgb: g.rgb,
+        indexInGroup: i,
+        scatterRx: rand(seed++),
+        scatterRy: rand(seed++),
+        order: rand(seed++), // desfase individual de la animación
+      });
+    }
+  });
+
+  const STAGGER = 0.55;
+  function localProgress(leg, order) {
+    return Math.max(0, Math.min(1, (leg - order * STAGGER) / (1 - STAGGER)));
+  }
+  function ease(x) { return (1 - Math.cos(Math.max(0, Math.min(1, x)) * Math.PI)) / 2; }
+
+  const D = 2600, PAUSE = 1000, CYCLE = 2 * (D + PAUSE);
+  function legAt(elapsed) {
+    const pos = elapsed % CYCLE;
+    if (pos < D) return ease(pos / D);
+    if (pos < D + PAUSE) return 1;
+    if (pos < D + PAUSE + D) return 1 - ease((pos - D - PAUSE) / D);
+    return 0;
+  }
+
+  function roundRectFill(rx, ry, rw, rh, rr) {
+    const r = Math.max(0, Math.min(rr, rw / 2, rh / 2));
+    ctx.beginPath();
+    ctx.moveTo(rx + r, ry);
+    ctx.arcTo(rx + rw, ry, rx + rw, ry + rh, r);
+    ctx.arcTo(rx + rw, ry + rh, rx, ry + rh, r);
+    ctx.arcTo(rx, ry + rh, rx, ry, r);
+    ctx.arcTo(rx, ry, rx + rw, ry, r);
+    ctx.closePath();
+    ctx.fill();
+  }
+
+  function resize() {
+    const dpr = Math.min(window.devicePixelRatio || 1, 2);
+    canvas.width = canvas.clientWidth * dpr;
+    canvas.height = canvas.clientHeight * dpr;
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    drawFrame(prefersReducedMotion ? D + PAUSE / 2 : 0); // fijo en pleno diagrama de barras
+  }
+
+  function drawFrame(elapsed) {
+    const w = canvas.clientWidth, h = canvas.clientHeight;
+    ctx.clearRect(0, 0, w, h);
+    if (!w || !h) return;
+
+    const leg = legAt(elapsed);
+    const padX = 6, padTop = 8, padBottom = 2;
+    const plotW = w - padX * 2, plotH = h - padTop - padBottom;
+    const nGroups = GROUPS.length;
+    const barGap = 5;
+    const barW = (plotW - barGap * (nGroups - 1)) / nGroups;
+    const maxCount = Math.max(...GROUPS.map((g) => g.n));
+    const personR = 1.9;
+
+    dots.forEach((d) => {
+      const tp = localProgress(leg, d.order);
+
+      // posición dispersa (población) — fija por punto
+      const sx = padX + d.scatterRx * plotW;
+      const sy = padTop + d.scatterRy * plotH;
+
+      // posición apilada dentro de su barra (diagrama de barras)
+      const bx = padX + d.group * (barW + barGap) + barW / 2;
+      const cellH = plotH / maxCount;
+      const by = padTop + plotH - (d.indexInGroup + 0.5) * cellH;
+
+      const x = sx + (bx - sx) * tp;
+      const y = sy + (by - sy) * tp;
+
+      // forma: de figura (cabeza + cuerpo) a segmento de barra — la cabeza
+      // se encoge hasta desaparecer mientras el cuerpo crece hasta ocupar
+      // el ancho y alto exactos del segmento de barra
+      const segW = barW * 0.82;
+      const segH = cellH * 0.82;
+      const headR = personR * (1 - tp);
+      const bodyW = personR * 1.7 * (1 - tp) + segW * tp;
+      const bodyH = personR * 2.3 * (1 - tp) + segH * tp;
+      const radius = Math.max(0.6, 2.2 * (1 - tp));
+
+      ctx.fillStyle = `rgba(${d.rgb.join(', ')}, ${0.6 + 0.4 * tp})`;
+      if (headR > 0.05) {
+        ctx.beginPath();
+        ctx.arc(x, y - bodyH / 2 - headR * 0.9, headR, 0, Math.PI * 2);
+        ctx.fill();
+      }
+      roundRectFill(x - bodyW / 2, y - bodyH / 2, bodyW, bodyH, radius);
+    });
+  }
+
+  resize();
+  window.addEventListener('resize', resize);
+  if (prefersReducedMotion) return;
+  function loop(ts) { drawFrame(ts); requestAnimationFrame(loop); }
+  requestAnimationFrame(loop);
 }
 
 </script>
